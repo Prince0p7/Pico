@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PhysicsObject : MonoBehaviour
 {
-
     public float minGroundNormalY = .65f;
     public float gravityModifier = 1f;
 
@@ -17,6 +16,8 @@ public class PhysicsObject : MonoBehaviour
     protected RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
     protected List<RaycastHit2D> hitBufferList = new List<RaycastHit2D>(16);
 
+    protected SpriteRenderer spriteRenderer;
+    public Transform parent;
 
     protected const float minMoveDistance = 0.001f;
     protected const float shellRadius = 0.01f;
@@ -24,6 +25,8 @@ public class PhysicsObject : MonoBehaviour
     void OnEnable()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        parent = null;
     }
 
     void Start()
@@ -35,8 +38,32 @@ public class PhysicsObject : MonoBehaviour
 
     void Update()
     {
+      //  CheckStandablePlaces();
         targetVelocity = Vector2.zero;
         ComputeVelocity();
+        PlatformChecker();
+        transform.SetParent(parent);
+    }
+    void PlatformChecker()
+    {
+        Debug.DrawRay(transform.position, Vector3.down * spriteRenderer.bounds.extents.y * 3, Color.blue);
+        RaycastHit2D hit = Physics2D.BoxCast(transform.position + (Vector3.up * spriteRenderer.bounds.extents.y), spriteRenderer.bounds.size, 0, Vector3.down, spriteRenderer.bounds.extents.y * 3);
+        if (hit.collider != null)
+        {
+            if (hit.collider.tag == "Platform" || hit.collider.tag == "Player")
+            {
+                parent = hit.collider.transform;
+            }
+
+            else if (!grounded && hit.collider.tag != "Platform" && hit.collider.tag != "Player")
+            {
+                parent = null;
+            }
+        }
+        else if (!grounded)
+        {
+            parent = null;
+        }
     }
 
     protected virtual void ComputeVelocity()
@@ -104,5 +131,4 @@ public class PhysicsObject : MonoBehaviour
         Vector3 _position = move.normalized * distance;
         transform.Translate(_position);
     }
-
 }

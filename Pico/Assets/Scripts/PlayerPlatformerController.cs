@@ -9,15 +9,12 @@ public class PlayerPlatformerController : PhysicsObject
     public float jumpTakeOffSpeed = 7;
     public string MoveInput;
     public KeyCode Jump = KeyCode.None;
-    private SpriteRenderer spriteRenderer;
     private Animator animator;
     bool m_FacingRight = true;
-
     // Use this for initialization
     void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-     //   animator = GetComponent<Animator>();
+        //   animator = GetComponent<Animator>();
     }
 
     protected override void ComputeVelocity()
@@ -33,13 +30,10 @@ public class PlayerPlatformerController : PhysicsObject
 
         if (move.x > 0 && !m_FacingRight)
         {
-            // ... flip the player.
             Flip();
         }
-        // Otherwise if the input is moving the player left and the player is facing right...
         else if (move.x < 0 && m_FacingRight)
         {
-            // ... flip the player.
             Flip();
         }
 
@@ -50,7 +44,6 @@ public class PlayerPlatformerController : PhysicsObject
     }
     private void Flip()
     {
-        // Switch the way the player is labelled as facing.
         m_FacingRight = !m_FacingRight;
 
         if (spriteRenderer.flipX)
