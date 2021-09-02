@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Platform
+  - KeyBox
   layers:
   - Default
   - TransparentFX
@@ -18,13 +19,13 @@ TagManager:
   - Background
   - Camera Colliders
   - Platform
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - RunnerMask
+  - FinderMask
+  - Black
+  - Objects
+  - UnInteractable
+  - RunnerBehindMask
+  - FinderBehindMask
   - 
   - 
   - 
@@ -44,4 +45,7 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 1551507469
     locked: 0

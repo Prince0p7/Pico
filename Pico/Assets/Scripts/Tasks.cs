@@ -1,18 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using Photon.Pun;
 
 public class Tasks : MonoBehaviour
 {
-    public bool TaskCompleted;
-    void Start()
-    {
-        
-    }
     void Update()
     {
-        if(TaskCompleted)
-        {
-            Debug.Log("Task Has Completed");
-        }
+
     }
 }

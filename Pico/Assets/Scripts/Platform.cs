@@ -6,6 +6,7 @@ public class Platform : MonoBehaviour
     float Direction;
     [SerializeField] bool DownDirection, CanMove;
     public float speed;
+    public int PlayerOnPlatform;
     void LateUpdate()
     {
         _Platform();
@@ -47,5 +48,21 @@ public class Platform : MonoBehaviour
             Direction = 0;
         }
         transform.Translate(Vector3.up * Direction * 1/speed);
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Player p = collision.collider.GetComponent<Player>();
+        if (p != null)
+        {
+
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        Player p = collision.collider.GetComponent<Player>();
+        if (p != null)
+        {
+
+        }
     }
 }
